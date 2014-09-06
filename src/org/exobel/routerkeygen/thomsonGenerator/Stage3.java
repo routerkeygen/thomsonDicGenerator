@@ -25,7 +25,7 @@ public class Stage3 {
 		byte [] webDicTable = new byte[768]; 
 		RandomAccessFile webDicIndex = null;
 		try {
-			File webDic = new File("webdic.dic");
+			File webDic = new File(OutputFilesNames.WEBDIC_NAME);
 			webDic.delete();
 			webDic.createNewFile();
 			webDicIndex = new RandomAccessFile(webDic, "rw");

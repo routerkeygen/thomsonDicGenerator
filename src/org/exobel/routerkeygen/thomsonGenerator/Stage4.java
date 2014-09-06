@@ -11,8 +11,7 @@ public class Stage4 {
 
 	/*
 	 * Version 1 - Initial dictionary of 55.8 MB ( downloaded 740 times )
-	 * Version 2 - Second version with 41.9 MB Version 3 - Third version with
-	 * 28.0 MB
+	 * Version 2 - Second version with 41.9 MB Version 3 - Third version with 28.0 MB
 	 */
 	public static final byte[] version = { 0, 4 };
 
@@ -31,7 +30,7 @@ public class Stage4 {
 		byte[] table = new byte[1280];
 		RandomAccessFile webDicIndex = null;
 		try {
-			File webDic = new File("webdic.dic");
+			File webDic = new File(OutputFilesNames.WEBDIC_NAME);
 			webDic.createNewFile();
 			webDicIndex = new RandomAccessFile(webDic, "rw");
 			webDicIndex.setLength(1024 + 256 * 768);
@@ -76,9 +75,9 @@ public class Stage4 {
 				address += count;
 			}
 		}
-		FileOutputStream fos;
+		FileOutputStream fos = null;
 		try {
-			fos = new FileOutputStream("RouterKeygen.dic");
+			fos = new FileOutputStream(OutputFilesNames.DIC_NAME);
 			fos.write(version);
 			entry.toFile(table);
 			fos.write(table);
@@ -112,10 +111,17 @@ public class Stage4 {
 					}
 				}
 			}
-			fos.close();
 		} catch (IOException e) {
 			System.out.println("Error!" + e);
 			return;
+		} finally {
+			if (fos != null) {
+				try {
+					fos.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		long time = System.currentTimeMillis() - begin;
 		System.out.println("Done .. 100%! It took " + time + " miliseconds.");

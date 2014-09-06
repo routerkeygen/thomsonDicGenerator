@@ -14,7 +14,7 @@ public class Stage5 {
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
 
-			InputStream is = new FileInputStream("RouterKeygen.dic");
+			InputStream is = new FileInputStream(OutputFilesNames.DIC_NAME);
 			is = new DigestInputStream(is, md);
 			byte []  buffer = new byte [16384] ; 
 			while ( is.read ( buffer )  != -1 );
@@ -22,7 +22,7 @@ public class Stage5 {
 			byte[] digest = md.digest();
 			is.close();
 
-			FileOutputStream fos = new FileOutputStream("RouterKeygen.cfv");
+			FileOutputStream fos = new FileOutputStream(OutputFilesNames.CFV_NAME);
 			fos.write(Stage4.version);
 			fos.write(digest);
 			fos.close();
